@@ -1,6 +1,8 @@
 var Story = React.createClass({
   render: function() {
 
+    console.log(this.props.story.preview.images[0].source.url);
+
     var _this = this;
     var t = function() {
       return {
@@ -20,6 +22,9 @@ var Story = React.createClass({
           <br/>
           {this.props.story.author}
           <div dangerouslySetInnerHTML={t()} />
+          <div>
+            <img src={this.props.story.preview.images[0].source.url} />
+          </div>
         </div>
       </div>
     );
@@ -69,7 +74,7 @@ var App = React.createClass({
   componentDidMount: function() {
     this.setSelectedItem({
       data: {
-        url: "/r/all",
+        url: "/r/awww",
       }
     })
   },
