@@ -2,10 +2,11 @@ var Story = React.createClass({
   render: function() {
 
     // console.log(this.props.story.preview.images[0].source.url);
-    // console.log(this.props.story.name);
+    // console.log(this.props.story.preview.images[0]);
+
     try {
       var imageTag = (
-        <img src={this.props.story.preview.images[0].source.url} />
+        <img src={this.props.story.preview.images[0].source.url} width="500" />
       )
     }
     catch (e) {
@@ -22,7 +23,6 @@ var Story = React.createClass({
     return (
       <div className="row" key={this.props.story.name}>
         <div className="col-xs-1">
-          {this.props.indexNumber} <br/>
           {this.props.story.score}
         </div>
         <div className="col-xs-11">
