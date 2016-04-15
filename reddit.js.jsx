@@ -1,3 +1,8 @@
+var Router = ReactRouter.Router;
+var Link = ReactRouter.Link;
+var Route = ReactRouter.Route;
+var browserHistory = History.createHistory();
+
 var Story = React.createClass({
   render: function() {
 
@@ -69,8 +74,11 @@ window.onscroll = function(ev) {
 
 var App = React.createClass({
   getInitialState: function() {
+
+    var location = window.location.pathname;
+
     return ({
-      url: "/r/awww",
+      url: location,
       stories: [],
     });
   },
@@ -127,7 +135,13 @@ var App = React.createClass({
   },
 });
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('app')
-);
+var routeSet = (
+  <Router history={browserHistory}>
+    <Route path="/" component={App}>
+      <Route path="/r/:subreddit" component={App} />
+    </Route>
+  </Router>
+)
+
+ReactDOM.render(routeSet, document.getElementById('app'))
+browserHistory.push(window.location.pathname);
