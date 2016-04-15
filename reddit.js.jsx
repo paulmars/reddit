@@ -31,9 +31,6 @@ var Story = React.createClass({
           </a>
           <br/>
           {this.props.story.author}
-          <div>
-            {this.props.story.name}
-          </div>
           <div dangerouslySetInnerHTML={t()} />
           <div>
             { imageTag }
@@ -73,14 +70,14 @@ window.onscroll = function(ev) {
 var App = React.createClass({
   getInitialState: function() {
     return ({
-      url: "",
+      url: "/r/awww",
       stories: [],
     });
   },
   loadMore: function(location) {
     var _this = this;
     // console.log(location);
-    var url = "https://www.reddit.com/" + location + ".json";
+    var url = "https://www.reddit.com" + location + ".json";
 
     if (this.state.stories.length > 0) {
       // console.log(this.state.stories);
@@ -93,8 +90,8 @@ var App = React.createClass({
       var url = "https://www.reddit.com/" + location + ".json?after=" + last_name;
     }
 
-    // console.log("url");
-    // console.log(url);
+    console.log("url");
+    console.log(url);
 
     $.ajax({
       url: url,
@@ -111,19 +108,17 @@ var App = React.createClass({
         _this.setState({stories: stories});
       }
     });
-
-    this.setState({
-      url: location,
-    });
   },
   componentDidMount: function() {
     var _this = this;
-    $('body').on("bottom", function() {
-      // console.log("found trigger");
-      _this.loadMore("/r/awww");
-    });
+
+    var throttledMore = _.throttle(function() {
+      _this.loadMore(_this.state.url)
+    }, 3000);
+    $('body').on("bottom", throttledMore);
+
     window.loadMore = this.loadMore;
-    this.loadMore("/r/awww");
+    this.loadMore(this.state.url);
   },
   render: function() {
     return (
