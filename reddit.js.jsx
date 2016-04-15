@@ -61,7 +61,7 @@ var StoryList = React.createClass({
 
 window.onscroll = function(ev) {
   // console.log("on scroll");
-  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 2000) {
+  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
     // console.log("bottom");
     $('body').trigger('bottom');
   }
